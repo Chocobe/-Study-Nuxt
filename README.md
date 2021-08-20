@@ -1,4 +1,13 @@
+##### top
 # -Study-Nuxt
+
+* [01. ``Nuxt JS`` 프로젝트 생성하기](#01)
+
+
+
+<br/><hr/><br/>
+
+
 
 * ``Nuxt JS``는 ``Vue`` 프레임워크를 사용한 ``Server Side Rendering Framework`` 입니다.
 * ``Nuxt JS`` 프로젝트에는 ``Vuex``, ``Vue-Router``, ``Axios`` 등의 라이브러리들이 미리 구성하여 제공하고 있습니다.
@@ -28,17 +37,24 @@
 
 
 
-<br/><hr/><br/>
+<br/>
+
+[🔺 Top](#top)
+
+<hr/><br/>
 
 
 
-## 01. ``Nuxt JS`` 프로젝트 생성하기
+##### 01
+# 01. ``Nuxt JS`` 프로젝트 생성하기
 
 > 공식홈페이지: [https://ko.nuxtjs.org/docs/2.x/get-started/installation](https://ko.nuxtjs.org/docs/2.x/get-started/installation)
 
 <br/>
 
-``Nuxt JS`` 프로젝트를 생성하기 위한 NPM 명령은 다음과 같습니다.
+``Nuxt JS`` 프로젝트를 생성하기 위한 NPM 명령은 다음과 같습니다. 
+
+(``Nuxt JS``에 대한 설치는 없이, ``NPM 프로젝트 생성 명령``으로 프로젝트를 생성 합니다)
 
 ```bash
 npm init nuxt-app <프로젝트명>
@@ -80,3 +96,37 @@ npm init nuxt-app <프로젝트명>
 ``Nuxt JS`` 프로젝트 생성이 완료되면, 다음과 같은 안내를 받을 수 있습니다.
 
 <img src="./readmeAssets/01-nuxtjs-프로젝트-생성하기-04.png" width="700px" alt="이미지: Nuxt JS 프로젝트 생성 04"><br/>
+
+<br/>
+
+``Nuxt JS``의 개발서버 실행은 ``dev`` 명령으로 설정되어 있습니다.
+
+```bash
+$ npm run dev
+```
+
+실행하게 되면 ``http://localhost:3000/`` 경로로 실행할 수 있습니다.
+
+<img src="./readmeAssets/01-nuxtjs-프로젝트-생성하기-05.png" width="700px" alt="이미지: Nuxt JS 프로젝트 생성 05"><br/>
+
+<br/>
+
+아래 이미지는 ``Nuxt JS`` 프로젝트를 생성한 직후의 실행 화면 입니다.
+
+<img src="./readmeAssets/01-nuxtjs-프로젝트-생성하기-06.png" width="700px" alt="이미지: Nuxt JS 프로젝트 생성 06"><br/>
+
+<br/>
+
+``Nuxt JS`` 프로젝트를 실행중에 소스코드가 변경되면, 해당 사항은 자동으로 반영되므로, 서버를 재실행할 필요는 없습니다.
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<hr/><br/>
+
+
+
+# 02. 
