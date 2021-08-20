@@ -3,6 +3,8 @@
 
 * [01. ``Nuxt JS`` 프로젝트 생성하기](#01)
 
+* [02. ``Nuxt JS``의 폴더 구조](#02)
+
 
 
 <br/><hr/><br/>
@@ -129,4 +131,27 @@ $ npm run dev
 
 
 
-# 02. 
+##### 02
+# 02. ``Nuxt JS``의 폴더 구조
+
+<img src="./readmeAssets/02-nuxtjs-폴더구조-01.png" width="400px" alt="이미지: 폴더구조"><br/>
+
+* ``.nuxt``: ``Nuxt JS`` 프로젝트 개발서버 실행 시, ``빌드결과물`` 폴더 입니다. (``.gitignore`` 설정상태)
+* ``components``: ``Vue 컴포넌트`` 폴더
+* ``pages``: ``Nuxt JS`` 프로젝트의 페이지용 ``Vue 컴포넌트`` 폴더
+* ``static``: 정적 리소스 폴더
+* ``store``: ``Vuex`` 폴더
+* ``nuxt.config.js``: ``Nuxt JS`` 프로젝트 설정파일
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<hr/><br/>
+
+
+
+##### 03
+# 03. 
