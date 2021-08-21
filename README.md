@@ -7,6 +7,8 @@
 
 * [03. 새로운 페이지 생성하기](#03)
 
+* [04. 에러 페이지 만들기](#04)
+
 
 
 <br/><hr/><br/>
@@ -146,6 +148,16 @@ $ npm run dev
 * ``store``: ``Vuex`` 폴더
 * ``nuxt.config.js``: ``Nuxt JS`` 프로젝트 설정파일
 
+<br/>
+
+다음 항목은 프로젝트상에는 없지만, ``Nuxt JS`` 프레임워크의 구조를 커스텀 할 수 있는 폴더 입니다.
+
+``Nuxt JS`` 프로젝트를 생성하면, 처음에는 없는 폴더지만, 직접 폴더를 생성하고 ``Nuxt JS``에서 인식하는 파일명의 ``.vue`` 파일을 만든다면, 해당 요소를 커스터마이징 할 수 있습니다.
+
+* ``layouts``: 이 폴더를 만든 후, ``default.vue`` 파일을 만들게 되면, ``기본 레이아웃``으로 사용하게 됩니다.
+* ``middleware``: 페이지 요청 시에 필요한 선처리 로직을 설정할 수 있습니다. (``nuxt.config.js`` 설정 필요)
+* ``plugins``: 외부 라이브러리(예: ``axios`` 등)을 설정하기 위한 폴더 입니다. (``nuxt.config.js`` 설정 필요)
+
 
 
 <br/>
@@ -260,4 +272,71 @@ export default {
 
 
 ##### 04
-# 04.
+# 04. 에러 페이지 만들기
+
+``Nuxt JS`` 프로젝트를 생성하면, 기본 ``404 페이지``를 제공하고 있습니다.
+
+<img src="./readmeAssets/04-nuxtjs-에러%20페이지%20만들기-01.png" width="700px" alt="이미지: 기본 404 페이지"><br/>
+
+<br/>
+
+기본 404 페이지의 UI는, 우리가 앞으로 만들 프로젝트의 UI와 일치할 가능성이 거의 없기 때문에 커스터마이징이 필요 합니다.
+
+``Nuxt JS`` 프레임워크의 에러 페이지를 커스터마이징 하기 위해서는 다음과 같은 절차가 필요 합니다.
+
+1. 루트 경로에 ``layouts`` 폴더 생성
+2. ``layouts`` 폴더에 ``error.vue`` 파일 생성
+
+<br/>
+
+위와 같이 ``@/layouts/error.vue`` 파일을 생성하면, ``Nuxt JS`` 의 에러 페이지로 ``@/layouts/error.vue`` 파일을 사용하게 됩니다.
+
+<img src="./readmeAssets/04-nuxtjs-에러%20페이지%20만들기-02.png" width="400px" alt="이미지: 404 커스텀 페이지 01"><br/>
+
+```html
+<!-- 경로: "@/layouts/error.vue" -->
+
+<template>
+  <div>
+    <h1 class="error__title">
+      🐫 404 커스텀 페이지 입니다.
+    </h1>
+  </div>
+</template>
+
+<script>
+export default {
+  //
+}
+</script>
+
+<style scoped>
+.error__title {
+  color: #ff1493;
+  font-size: 60px;
+  font-weight: 900;
+  text-align: center;
+}
+</style>
+```
+
+<br/>
+
+위와 같이 작성한 후 로컬서버를 재실행 하면, ``404 커스텀 페이지``가 적용된 것을 확인할 수 있습니다.
+
+<img src="./readmeAssets/04-nuxtjs-에러%20페이지%20만들기-03.png" width="700px" alt="이미지: 404 커스텀 페이지"><br/>
+
+<br/>
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<hr/><br/>
+
+
+
+##### 05
+# 05. 
