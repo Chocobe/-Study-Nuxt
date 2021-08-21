@@ -11,6 +11,8 @@
 
 * [05. ``layouts`` 구성하기](#05)
 
+* [06. 페이지 이동을 위한 메뉴 (router-link) 만들기](#06)
+
 
 
 <br/><hr/><br/>
@@ -408,3 +410,83 @@ export default {
 
 
 
+##### 06
+# 06. 페이지 이동을 위한 ``메뉴 (router-link)`` 만들기
+
+``Vue 프로젝트``에서 페이지 이동을 위한 ``메뉴``는 ``<router-link to="URI 경로" />``형식으로 만들었습니다.
+
+``Nuxt JS`` 또한 페이지 이동을 위한 태그를 제공하는데, ``<NuxtLink to="URI 경로" />``형식으로 만들 수 있습니다.
+
+<br/>
+
+다음 코드는 ``@/layouts/default.vue``에 ``메뉴`` 기능을 추가한 예시 입니다.
+
+```html
+<!-- "@/layouts/default.vue" -->
+
+<template>
+  <div>
+    <header>
+      <h1>{{ $route.name }} 페이지 </h1>
+
+      <nav>
+        <ul class="menu">
+          <li class="menu__item">
+            <NuxtLink to="./">홈</NuxtLink>
+          </li>
+
+          <li class="menu__item">
+            <NuxtLink to="/main">메인</NuxtLink>
+          </li>
+
+          <li class="menu__item">
+            <NuxtLink to="/product">상품</NuxtLink>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  </div>
+</template>
+
+<script>
+export default {
+  //
+}
+</script>
+
+<style scoped>
+.menu {
+  margin: 20px;
+  list-style: none;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.menu__item {
+  margin-right: 20px;
+}
+
+.menu__item::last-child {
+  margin-right: 0;
+}
+</style>
+```
+
+<br/>
+
+<img src="./readmeAssets/05-nuxtjs-layouts%20구성하기-05.gif" width="400px" alt="GIF: 메뉴"><br/>
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<hr/><br/>
+
+
+
+##### 07
+# 07.
