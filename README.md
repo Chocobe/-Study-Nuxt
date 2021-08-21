@@ -9,6 +9,8 @@
 
 * [04. 에러 페이지 만들기](#04)
 
+* [05. ``layouts`` 구성하기](#05)
+
 
 
 <br/><hr/><br/>
@@ -339,4 +341,70 @@ export default {
 
 
 ##### 05
-# 05. 
+# 05. ``layouts`` 구성하기
+
+``Nuxt JS`` 프레임워크의 레이아웃은 ``@/layouts/default.vue``를 사용하여 설정할 수 있습니다.
+
+다음 이미지는 ``Nuxt JS`` 프레임워크의 ``layouts``와 ``pages``의 관계를 나타냅니다.
+
+<img src="./readmeAssets/05-nuxtjs-layouts%20구성하기-01.png" width="400px" alt="이미지: layouts 구조"><br/>
+
+<br/>
+
+위의 이미지를 살펴보면, ``@/layouts/default.vue`` 파일이 ``layouts``으로 동작하며, 그 안에서 ``실제 페이지``가 출력됨을 알 수 있습니다.
+
+따라서, 모든 페이지에서 공통으로 사용할 요소를 ``layouts``에서 구성요소로 작성한다면, 모든 페이지에 동일하게 적용시킬 수 있습니다.
+
+<br/>
+
+다음 코드는 ``@/layouts/default.vue`` 에 공통 컴포넌트로 ``<h1>{{ 페이지 명 }}</h1>``을 사용하는 예시 입니다.
+
+```html
+<!-- 경로: "@/layouts/default.vue" -->
+
+<template>
+  <div>
+    <h1>{{ $route.name }} 페이지</h1>
+    <Nuxt />
+  </div>
+</template>
+
+<script>
+export default {
+  //
+}
+</script>
+
+<style scoped>
+/*  */
+</style>
+```
+
+<br/>
+
+위와 같이 구성하면, 모든 페이지에 ``<h1>{{ 페이지 명 }}</h1>`` 요소가 적용 됩니다.
+
+<img src="./readmeAssets/05-nuxtjs-layouts%20구성하기-02.png" width="400px" alt="이미지: index 페이지"><br/>
+
+<img src="./readmeAssets/05-nuxtjs-layouts%20구성하기-03.png" width="400px" alt="이미지: main 페이지"><br/>
+
+<img src="./readmeAssets/05-nuxtjs-layouts%20구성하기-04.png" width="400px" alt="이미지: product 페이지"><br/>
+
+<br/>
+
+그리고 하나 확인해야 할 부분은 ``<Nuxt />`` 태그 입니다.
+
+``<Nuxt />`` 태그는 ``Vue 프로젝트``의 ``<router-view />``의 역할을 하게 됩니다.
+
+따라서, ``@/layouts/default.vue`` 에서 각 페이지가 실제로 출력되는 부분이 ``<Nuxt />`` 태그 내부가 됩니다.
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<hr/><br/>
+
+
+

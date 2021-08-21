@@ -18,5 +18,19 @@ module.exports = {
   // add your custom rules here
   rules: {
     "no-console": off,
+
+    "prettier/prettier": [
+      "error",
+      {
+        singleQuote: false,
+        semi: true,
+        useTabs: true,
+        tabWidth: 2,
+        trailingComma: 'all',
+        printWidth: 80,
+        bracketSpacing: true,
+        arrowParens: 'avoid',
+      },
+    ],
   }
 }

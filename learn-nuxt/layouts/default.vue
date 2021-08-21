@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>하위 페이지</h1>
+    <h1>{{ $route.name }} 페이지</h1>
+    <Nuxt />
   </div>
 </template>
 
@@ -11,5 +12,4 @@ export default {
 </script>
 
 <style>
-/*  */
 </style>
