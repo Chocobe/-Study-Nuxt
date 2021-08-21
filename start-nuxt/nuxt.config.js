@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'learn-nuxt',
+    title: 'start-nuxt',
     htmlAttrs: {
       lang: 'en'
     },
@@ -41,6 +41,7 @@ export default {
   build: {
   },
 
+  // server setup
   server: {
     port: 8080,
   },

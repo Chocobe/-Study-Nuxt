@@ -13,6 +13,10 @@
 
 * [06. 페이지 이동을 위한 메뉴 (router-link) 만들기](#06)
 
+* [07. Nuxt의 ``ESLint plugin`` 살펴보기](#07)
+
+* [08. ``Server Side Rendering``에서의 ``데이터 Fetch``: ``asyncData()`` 라이프 사이클 훅](#08)
+
 
 
 <br/><hr/><br/>
@@ -485,3 +489,219 @@ export default {
 [🔺 Top](#top)
 
 <hr/><br/>
+
+
+
+##### 07.
+# 07. Nuxt의 ``ESLint plugin`` 살펴보기
+
+Nuxt의 ESLint에는 ``eslint-plugin-nuxt`` 플러그인을 사용할 수 있습니다.
+
+> Github) eslint-plugin-nuxt: [https://github.com/nuxt/eslint-plugin-nuxt](https://github.com/nuxt/eslint-plugin-nuxt)
+
+<br/>
+
+처음 ``Nuxt JS`` 프로젝트를 생성하면, 기본 플러그인으로 ``plugin:nuxt/recommended``가 설정되어 있습니다.
+
+여기에는 ``fetch data`` 훅에서 ``setTimeout()`` 이나 ``setInterval()``을 제한하는 규칙만 제공하므로, 상당히 러프한 Lint가 됩니다.
+
+(``fetch data hook``은 다음 챕터에서 자세히 알아보겠습니다.)
+
+때문에, ESLint의 플러그인에 ``plugin:nuxt/base``를 함께 사용하게 되면, 좀 더 강력한 Lint를 사용할 수 있습니다.
+
+<br/>
+
+다음 코드는 ESLint 설정 파일의 ``plugins`` 설정 입니다.
+
+```javascript
+// 경로: root/.eslintrc.js
+
+module.exports = {
+  // ...생략...
+
+  plugins: [
+    "@nuxtjs",
+    "plugin:nuxt/recommended",
+    "plugin:nuxt/base",
+    "prettier",
+  ],
+
+  // ...생략...
+}
+```
+
+<br/>
+
+위와 같이 ``plugin:nuxt/base`` 플러그인까지 설정하면, ``Nuxt JS``의 ``Data Fetch Hook`` 에서의 제약조건까지 에러를 띄워주기 때문에, 사소한 실수를 방지할 수 있습니다.
+
+<img src="./readmeAssets/07-nuxtjs-Nuxt의%20ESLint%20plugin-01.png" width="700px" alt="이미지: eslint-plugin-nuxt"><br/>
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<hr/><br/>
+
+
+
+##### 08
+# 08. ``Server Side Rendering``에서의 ``데이터 Fetch``: ``asyncData()`` 라이프 사이클 훅
+
+``Vue 프로젝트``에서는 데이터 fetch를 할 때, ``created()`` 또는 ``mounted()`` 라이프 사이클 훅에서 실행 하였습니다.
+
+이는 ``Client Side Rendering`` 방식의 컵셉이기 때문에 적합한 방법이었지만, ``Nuxt JS``는 ``Server Side Rendering`` 방식이므로, 적합하지 않은 방법 입니다.
+
+(물론 동작은 하지만, Server에서 ``template``과 ``데이터``를 조합한 상태로, 브라우저에 응답한다 는 컨셉에 위배됩니다.)
+
+<br/>
+
+먼저 ``Server Side Rendering``의 페이지 요청에 대한 응답방법을 간단히 알아보겠습니다.
+
+1. Server에 페이지 요청
+2. Server에서는 해당 페이지에 필요한 데이터를 ``Fetch``
+3. ``Fetch``한 데이터와 해당 페이지를 조합
+4. 조합된 페이지를 브라우저에 응답
+
+<br/>
+
+위와같은 흐름은 ``Nuxt JS``의 라이프 사이클 훅에서도 동일하게 반영되어 있습니다.
+
+다음 이미지는 ``Nuxt JS``의 라이프 사이클 훅을 나타냅니다.
+
+> 출처: Nuxt 공식홈페이지 [https://ko.nuxtjs.org/docs/2.x/concepts/nuxt-lifecycle](https://ko.nuxtjs.org/docs/2.x/concepts/nuxt-lifecycle)
+
+<br/>
+
+<img src="./readmeAssets/08-nuxt-lifecycle-01.svg" width="700px" alt="이미지: Nuxt 라이프 사이클 훅"><br/>
+
+<br/>
+
+위의 이미지에서 라이프 사이클 훅 흐름을 보면 다음과 같습니다.
+
+1. Nuxt Server 초기화
+2. Route Middleware 실행 (Global => Layout => Page)
+3. 유효성 검사 (``Boolean`` 반환 훅)
+4. ``asyncData()`` 에서 데이터 ``Fetch`` 실행
+5. ``Vue`` 라이프 사이클 실행
+
+<br/>
+
+즉, ``Vue`` 컴포넌트의 인스턴스를 생성하기 전에, ``asyncData()`` 훅에서 데이터를 ``Fetch``하고, 이후에 ``Vue`` 라이프 사이클 훅이 실행됨을 알 수 있습니다.
+
+때문에, 우리는 페이지의 데이터를 ``Fetch``하기 위해, ``created()`` 또는 ``mounted()``가 아닌, ``asyncData()``을 사용하여 데이터를 ``Fetch``해야 합니다.
+
+<br/>
+
+다음 코드는 ``asyncData()`` 훅에서 데이터 ``Fetch`` 예시 입니다.
+
+```html
+<template>
+  <div>
+    {{ users }}
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+  
+export default {
+  // asyncData 라이프 사이클 훅
+  async asyncData() {
+    // 1. 데이터 조회
+    const response = await axios.get("요청URL");
+
+    // 2. Fetch데이터를 객체로 패킹하여 반환
+    return {
+      users: response.data,
+    };
+  },
+}
+</script>
+```
+
+<br/>
+
+> asyncData 훅: [https://ko.nuxtjs.org/docs/2.x/features/data-fetching](https://ko.nuxtjs.org/docs/2.x/features/data-fetching)
+
+위의 코드를 하나씩 살펴 보겠습니다.
+
+<br/>
+
+## 08-01. ``asyncData()`` 훅은 ``Pages`` 컴포넌트에만 사용 가능
+
+``asyncData()`` 훅은, 페이지 요청 시에 새로운 페이지를 응답하기 위한 라이프 사이클에서 동작하기 때문에, ``pages`` 폴더 하위에 있는 ``Vue 페이지 컴포넌트`` 에서만 사용할 수 있습니다.
+
+<br/>
+
+## 08-02. ``asyncData()`` 내부에서는 ``this`` 사용불가
+
+``Nuxt 라이프 사이클``을 통해서도 유추할 수 있듯이, ``asyncData()`` 훅이 실행되는 시점은 ``Vue 라이프 사이클``이 실행되기 전이므로, 아직 ``this``가 생성되기 이전 상태 입니다.
+
+때문에, ``asyncData()`` 훅에서는 ``this``를 사용할 수 없습니다.
+
+(``eslint-plugin-nuxt``의 ``plugin:nuxt/base`` 플러그인에서 이를 보조해 주고 있습니다.)
+
+<br/>
+
+## 08-03. ``asyncData()`` 에서 ``Fetch``한 데이터는 어떻게 사용하는가?
+
+``asyncData()`` 훅에서 ``Fetch``한 데이터는 ``Object``로 패킹하여 반환하면, ``Vue 라이프 사이클`` 에서 ``data 속성``에 병합해 줍니다.
+
+때문에, ``Fetch``한 데이터를 담기 위해, ``data 속성``을 만들지 않고, ``asyncData()`` 훅에서 ``반환한 속성명``으로 사용할 수 있습니다.
+
+아래 코드는 ``asyncData()``에서 데이터 반환 예시 입니다.
+
+```html
+<template>
+  <div>
+    {{ users }}
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+
+export default {
+  async asyncData() {
+    const response = await axios.get("요청 URL");
+    return {
+      users: response.data,
+    };
+  },
+}
+</script>
+```
+
+<br/>
+
+## 08-04. ``asyncData()`` 훅에서의 ``에러``는?
+
+``asyncData()`` 훅은 ``Vue 라이프 사이클`` 전에 실행되기 때문에, ``asyncData()`` 훅에서 에러가 발생하면, 페이지 자체가 출력되지 않습니다.
+
+이 경우, ``@/layouts/error.vue`` 컴포넌트가 출력 됩니다.
+
+<br/>
+
+## 08-05. 요약
+
+지금까지 ``asyncData()`` 훅에 대한 요약을 하면 다음과 같습니다.
+
+* ``pages`` 컴포넌트에만 사용 가능
+* ``this`` 사용 불가
+* 반환한 객체의 ``속성명``으로 ``<template>``에서 바로 사용
+* ``asyncData()`` 훅에서 에러 발생 시, ``@/layouts/error.vue`` 페이지 출력
+
+
+
+<br/>
+
+[🔺 Top](#top)
+
+<hr/><br/>
+
+
+
+##### 09
+# 09. 
